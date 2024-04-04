@@ -45,5 +45,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.google.android.gms:play-services-vision:20.1.3")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }
