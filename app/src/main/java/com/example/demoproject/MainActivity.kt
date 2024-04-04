@@ -79,21 +79,24 @@ class MainActivity : AppCompatActivity() {
             }
         })
         barcodeDetector?.setProcessor(object : Detector.Processor<Barcode> {
-            override fun release() {
-            }
+            override fun release() {}
 
             override fun receiveDetections(detections: Detections<Barcode>) {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() != 0) {
-                    barcodeText!!.post {
-                        barcodeText!!.removeCallbacks(null)
-                        barcodeData = barcodes.valueAt(0).email.address
-                        barcodeText!!.text = barcodeData
-                        toneGen1!!.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
+                    val barcode = barcodes.valueAt(0)
+                    if (barcode != null && barcode.email != null) {
+                        barcodeText!!.post {
+                            barcodeText!!.removeCallbacks(null)
+                            barcodeData = barcode.email.address
+                            barcodeText!!.text = barcodeData
+                            toneGen1!!.startTone(ToneGenerator.TONE_CDMA_PIP, 150)
+                        }
                     }
                 }
             }
         })
+
     }
 
     override fun onPause() {
